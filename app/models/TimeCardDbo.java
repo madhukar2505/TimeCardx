@@ -21,8 +21,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 @Entity
 public class TimeCardDbo {
 
-	private static DateTimeFormatter fmt = DateTimeFormat
-			.forPattern("MMM dd, yyyy");
+	private static DateTimeFormatter fmt = DateTimeFormat.forPattern("MMM dd, yyyy");
 	@Id
 	@GeneratedValue
 	private int id;

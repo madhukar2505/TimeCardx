@@ -54,7 +54,6 @@ public class OtherStuff extends Controller {
 		List<UserDbo> employees = user.getEmployees();
 		List<TimeCardDbo> timeCards = user.getTimecards();
 		render(user, company, employees, timeCards);
-
 	}
 
 	public static void addCompany() {
@@ -88,10 +87,8 @@ public class OtherStuff extends Controller {
 		company.setDescription(detail);
 		company.addUser(user);
 		user.setCompany(company);
-
 		JPA.em().persist(company);
 		JPA.em().persist(user);
-
 		JPA.em().flush();
 		company();
 	}
@@ -204,13 +201,32 @@ public class OtherStuff extends Controller {
 		UserDbo employee = Utility.fetchUser();
 		List<UserDbo> employees = employee.getEmployees();
 		String email = employee.getEmail();
+		
+		
+		LocalDate beginOfWeek = Utility.calculateBeginningOfTheWeek();
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("MMM dd");
+		String currentWeek = fmt.print(beginOfWeek);
+		DayCardDbo[] dayCards = new DayCardDbo[7];
+		int[] noofhours = new int[7];
+		String[] details = new String[7];
+		for (int i = 0; i < 7; i++) {
+			noofhours[i] = 0;
+			details[i] = "";
+			dayCards[i] = new DayCardDbo();
+			dayCards[i].setDate(beginOfWeek.plusDays(i));
+		}
+		
+				
+		
+		//render(currentWeek, employee, beginOfWeek, dayCards, noofhours, details);
+		
 		if (employees != null && employees.size() == 0) {
 			// Employee is either only employee or a manager with no employee
 			// under him
 			// so render his timecards only
-			LocalDate beginOfWeek = Utility.calculateBeginningOfTheWeek();
+			LocalDate beginOfWeek1 = Utility.calculateBeginningOfTheWeek();
 			List<TimeCardDbo> timeCards = employee.getTimecards();
-			render(timeCards, beginOfWeek, email);
+			render(timeCards, beginOfWeek, email,currentWeek, employee, beginOfWeek, dayCards, noofhours, details);
 		} else {
 			manager();
 		}

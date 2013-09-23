@@ -66,8 +66,7 @@ public class Register extends Controller {
 		long interval = logintime - sendmailtime;
 		validation.required(interval);
 		if (interval > duration) {
-			validation.addError("interval",
-					"Plese request the admin to send the message again");
+			validation.addError("interval","Plese request the admin to send the message again");
 
 		} else {
 			render(email);
@@ -113,8 +112,7 @@ public class Register extends Controller {
 		user.setAdmin(false);
 		JPA.em().persist(user);
 
-		EmailToUserDbo ref = JPA.em().find(EmailToUserDbo.class,
-				user.getManager().getEmail());
+		EmailToUserDbo ref = JPA.em().find(EmailToUserDbo.class,user.getManager().getEmail());
 		UserDbo manager = JPA.em().find(UserDbo.class, ref.getValue());
 		manager.addEmployee(user);
 		JPA.em().persist(manager);

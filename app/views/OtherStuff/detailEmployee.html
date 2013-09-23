@@ -2,6 +2,12 @@
 <div class="container">
 </div>
 <script>
+(function(){
+	alert("hi");
+	$('#scr').hide();
+		
+	})();
+
 	$(document).ready(function() {
 		$(".time input").bind("change", updatesum);
 	});
@@ -14,7 +20,10 @@
 		$(hellodiv).empty()
 		$(hellodiv).append("Sum of the total hours is:" + sum);
 	}
+	
+	
 </script>
+
 <h4>Time Card of <strong> ${timeCard.beginOfWeek}</strong></h4>
         <div align="right"><a href=" @{OtherStuff.employee()}" class="btn active"><i class="fam-arrow-left"></i> Back</a></div>
           </br>
@@ -51,10 +60,11 @@
 					                 			</tr>
 					                 		#{/list}
 				                 		</table>                				                 		
-				                 	  <div align="right">Total No of Hours:${timeCard.numberOfHours}</br>
+				                 	  <div id="scr" align="right">Total No of Hours:${timeCard.numberOfHours}</br>
 			                          status:${timeCard.status}
 			                       </div>
 				                #{/form}
+				                </div>
             #{/if}
             #{else}
                             <div class="form">
